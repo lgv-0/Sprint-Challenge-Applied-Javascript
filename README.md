@@ -30,13 +30,23 @@ Edit this document to include your answers after each question. Make sure to lea
 
 1. What is the DOM?
 
+Document Object Model, contains the entire document and elements inside as objects that you can interact with using javascript
+
 2. What is an event?
+
+An event is a trigger function that says "when this happens, do this" - allowing you to fire certain actions upon an events trigger
 
 3. What is an event listener?
 
+Something that waits for an event to happen
+
 4. Why would we convert a NodeList into an Array?
 
+To (more easily) navigate through the data
+
 5. What is a component?
+
+Functions that create something else using data given
 
 ### Git Set up
 

@@ -7,3 +7,46 @@
 //
 //  The tab component should look like this:
 //    <div class="tab">topic here</div>
+
+var s_LastFilterUsed = "";
+function FilterCallback(eventSender)
+{
+    let s_FilterFor = eventSender.target.innerText.toLowerCase();
+    if (s_FilterFor.indexOf("node") != -1)
+        s_FilterFor = "node";
+    let Cards = document.querySelectorAll(".card");
+    let Tabs = document.querySelectorAll(".tab");
+
+    if (s_LastFilterUsed == s_FilterFor)
+    {
+        for (let i = 0; i < Cards.length; i++)
+            Object.assign(Cards[i].style, {"display":"block"});
+        for (let i = 0; i < Tabs.length; i++)
+            Object.assign(Tabs[i].style, {"backgroundColor":"#333"});
+        s_LastFilterUsed = "";
+        return;
+    }
+
+    s_LastFilterUsed = s_FilterFor;
+
+    for (let i = 0; i < Cards.length; i++)
+        Object.assign(Cards[i].style, {"display":(Cards[i].filter.toLowerCase() != s_FilterFor) ? "none" : "block"});
+    
+    for (let i = 0; i < Tabs.length; i++)
+        if (Tabs[i] != eventSender.target)
+            Object.assign(Tabs[i].style, {"backgroundColor":"#888"});
+    
+    Object.assign(eventSender.target.style, {"backgroundColor":"#333"});
+}
+
+axios.get("https://lambda-times-backend.herokuapp.com/topics").then((response)=>
+    {
+        let tabs = document.querySelector(".topics");
+        for (let i = 0; i < response.data.topics.length; i++)
+        {
+            let temp = Object.assign(document.createElement("div"), {"innerText":response.data.topics[i]});
+            temp.setAttribute("class", "tab");
+            temp.addEventListener("click", (eventSender)=>{FilterCallback(eventSender)});
+            tabs.appendChild(temp);
+        }
+    }).catch(error => {console.log(error.response)});
