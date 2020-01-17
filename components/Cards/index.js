@@ -50,5 +50,5 @@ axios.get("https://lambda-times-backend.herokuapp.com/articles").then((response)
         let a_S1 = Object.keys(response.data.articles);
         for (let i = 0; i < a_S1.length; i++)
             for (let z = 0; z < response.data.articles[a_S1[i]].length; z++)
-                CardContainer.appendChild(createCard(response.data.articles[a_S1[i]][z]));
+                CardContainer.appendChild(Object.assign(createCard(response.data.articles[a_S1[i]][z]), {"filter":a_S1[i]}));
     }).catch(error => {console.log(error.response)});
