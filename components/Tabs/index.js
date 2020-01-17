@@ -15,11 +15,14 @@ function FilterCallback(eventSender)
     if (s_FilterFor.indexOf("node") != -1)
         s_FilterFor = "node";
     let Cards = document.querySelectorAll(".card");
+    let Tabs = document.querySelectorAll(".tab");
 
     if (s_LastFilterUsed == s_FilterFor)
     {
         for (let i = 0; i < Cards.length; i++)
             Object.assign(Cards[i].style, {"display":"block"});
+        for (let i = 0; i < Tabs.length; i++)
+            Object.assign(Tabs[i].style, {"backgroundColor":"#333"});
         s_LastFilterUsed = "";
         return;
     }
@@ -28,6 +31,12 @@ function FilterCallback(eventSender)
 
     for (let i = 0; i < Cards.length; i++)
         Object.assign(Cards[i].style, {"display":(Cards[i].filter.toLowerCase() != s_FilterFor) ? "none" : "block"});
+    
+    for (let i = 0; i < Tabs.length; i++)
+        if (Tabs[i] != eventSender.target)
+            Object.assign(Tabs[i].style, {"backgroundColor":"#888"});
+    
+    Object.assign(eventSender.target.style, {"backgroundColor":"#333"});
 }
 
 axios.get("https://lambda-times-backend.herokuapp.com/topics").then((response)=>
