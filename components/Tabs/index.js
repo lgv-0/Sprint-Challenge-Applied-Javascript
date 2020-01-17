@@ -20,16 +20,14 @@ function FilterCallback(eventSender)
     {
         for (let i = 0; i < Cards.length; i++)
             Object.assign(Cards[i].style, {"display":"block"});
-            return;
+        s_LastFilterUsed = "";
+        return;
     }
 
     s_LastFilterUsed = s_FilterFor;
 
     for (let i = 0; i < Cards.length; i++)
-        if (Cards[i].filter.toLowerCase() != s_FilterFor)
-            Object.assign(Cards[i].style, {"display":"none"});
-        else
-            Object.assign(Cards[i].style, {"display":"block"});
+        Object.assign(Cards[i].style, {"display":(Cards[i].filter.toLowerCase() != s_FilterFor) ? "none" : "block"});
 }
 
 axios.get("https://lambda-times-backend.herokuapp.com/topics").then((response)=>
