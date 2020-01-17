@@ -7,6 +7,12 @@
   <link rel="stylesheet" type="text/css" href="./CSS/index.css" />
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    Element.prototype.setLastAttr = function (s_Attr, s_Value)
+    {
+      this.children[this.children.length - 1].setAttribute(s_Attr, s_Value);
+    };
+  </script>
   <script src="./components/Tabs/index.js" async></script>
   <script src="./components/Header/index.js" async></script>
   <script src="./components/Cards/index.js" async></script>
